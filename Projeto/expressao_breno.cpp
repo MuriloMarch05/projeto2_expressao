@@ -280,7 +280,7 @@ void Menu(){
             cin.get();
             break;
 
-            case 2: 
+            case 2: {
             Elemento *resultado = Calcular_exp(&F);
 
             if(resultado == NULL){
@@ -292,7 +292,7 @@ void Menu(){
             system("cls");
             cin.get();
             break;
-
+            }
             case 3: 
             system("cls");
             cin.get();
