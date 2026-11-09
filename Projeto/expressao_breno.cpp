@@ -223,41 +223,43 @@ int preced(const char *Op){
     }
     return precedencia;
 }
-float Calcular_exp(Fila *F){
+Elemento* Calcular_exp(Fila *F){
     Pilha PNum, POp;
     Ini_Pilha(&PNum);
     Ini_Pilha(&POp);
     Elemento *pto;
-    for(pto=F->Inicio;pto!=NULL;pto=pto->Prox){
-       if(strcmp(pto->Operador, "#")==0){
-           Empilhar(&PNum, "#", pto->Numero);
-       }
-       else{
-           if(!strcmp(pto->Operador, "(")){
-               Empilhar(&POp, "(", 0);
-           }
-           else{
-               if(!strcmp(pto->Operador, ")")){
-                   while(!Pilha_Vazia(&POp) && strcmp(pto->Operador, "(")!=0){
-                       Resolver_pilha(&PNum, &POp);
-                   }
-                   if(!Pilha_Vazia(&POp)){
-                       free(Desempilhar(&POp));
-                   }
-               }
-               else{
-                   while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(") != 0 && preced(pto->Operador) <= preced(POp.Topo->Operador)){
-                       Resolver_pilha(&PNum, &POp);
-                   }
-                   Empilhar(&POp, pto->Operador, 0);
-               }
-           }
-       } 
-    }
-    while(!Pilha_Vazia(&POp)){
-        Resolver_pilha(&PNum, &POp);
-    }
-    return PNum.Topo->Numero;
+	if(F->Inicio!=NULL){
+		for(pto=F->Inicio;pto!=NULL;pto=pto->Prox){
+			if(strcmp(pto->Operador, "#")==0){
+				Empilhar(&PNum, "#", pto->Numero);
+			}
+			else{
+				if(!strcmp(pto->Operador, "(")){
+					Empilhar(&POp, "(", 0);
+				}
+				else{
+					if(!strcmp(pto->Operador, ")")){
+						while(!Pilha_Vazia(&POp) && strcmp(pto->Operador, "(")!=0){
+							Resolver_pilha(&PNum, &POp);
+						}
+						if(!Pilha_Vazia(&POp)){
+							free(Desempilhar(&POp));
+						}
+					}
+					else{
+						while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(") != 0 && preced(pto->Operador) <= preced(POp.Topo->Operador)){
+							Resolver_pilha(&PNum, &POp);
+						}
+						Empilhar(&POp, pto->Operador, 0);
+					}
+				}
+			} 
+		}
+		while(!Pilha_Vazia(&POp)){
+			Resolver_pilha(&PNum, &POp);
+		}
+	}
+    return PNum.Topo;
 }
 void Menu(){
     int Op;
@@ -270,7 +272,12 @@ void Menu(){
                     system("cls");
                     cin.get();
                     break;
-            case 2: cout<<"\nO resultado da expressão é "<<Calcular_exp(&F);
+            case 2: if(!Calcular_exp(&F)){
+				        cout<<"\nExpressão inválida!\n";
+			        }
+				    else{
+						cout<<"\nO resultado da expressão digitada é "<<Calcular_exp(&F)->Numero<<endl;
+					}	
                     system("cls");
                     cin.get();
                     break;
