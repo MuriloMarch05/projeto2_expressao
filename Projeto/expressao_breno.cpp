@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <stdlib.h>
 using namespace std;
 struct Elemento{
@@ -134,39 +135,72 @@ Elemento * Desempilhar(Pilha *P){
     }
     return Ret;
 }
-float Calculo_parcial(float num1, float num2, char op[]){
-    float retorno;
-    if(!strcmp(op, "+")){
-        retorno=num1+num2;
+float Calcular(float num1, float num2, const char* operador){
+
+    float resultado = 0;
+    switch(operador[0]){
+
+        case '+':
+            resultado = num1 + num2;
+            break;
+        case '-':
+            resultado = num1 - num2;
+            break;
+        case '*':
+            resultado = num1 * num2;
+            break;
+
+        case '/':
+            if(num2 != 0){
+                resultado = num1 / num2;
+                break;
+            }
+            else{
+                cout << "Erro. Divisao por zero." << endl;
+                break;
+            }
+
+        default:
+
+            if(strcmp(operador, ">") == 0){
+                resultado = num1 > num2;
+            }
+            else{
+                if(strcmp(operador, "<") == 0){
+                    resultado = num1 < num2;
+                }
+                else{
+                    if(strcmp(operador, "=") == 0){
+                        resultado = num1 == num2;
+                    }
+                    else{
+                        if(strcmp(operador, "!=") == 0){
+                            resultado = num1 != num2;
+                        }
+                        else{
+                            if(strcmp(operador, ">=") == 0){
+                                resultado = num1 >= num2;
+                            }
+                            else{
+                                if(strcmp(operador, "<=") == 0){
+                                    resultado = num1 <= num2;
+                                }
+                                else{
+                                    if(strcmp(operador, "!") == 0){
+                                        resultado = !num1;
+                                    }
+                                    else{
+                                        cout << "Operador invalido." << endl;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
     }
-    if(!strcmp(op, "-")){
-        retorno=num1-num2;
-    }
-    if(!strcmp(op, "*") || !strcmp(op, "×")){
-        retorno=num1*num2;
-    }
-    if(!strcmp(op, "÷") || !strcmp(op, "/")){
-        retorno=num1/num2;
-    }
-    if(!strcmp(op, "<")){
-        retorno=(num1<num2);
-    }
-    if(!strcmp(op, ">")){
-        retorno=(num1>num2);
-    }
-    if(!strcmp(op, "<=")){
-        retorno=(num1<=num2);
-    }
-    if(!strcmp(op, ">=")){
-        retorno=(num1>=num2);
-    }
-    if(!strcmp(op, "!=")){
-        retorno=(num1!=num2);
-    }
-    if(!strcmp(op, "=")){
-        retorno=(num1=num2);
-    }
-    return retorno;
+
+    return resultado;
 }
 void Resolver_pilha(Pilha *PNum, Pilha *POp){
     float num1, num2;
@@ -174,7 +208,7 @@ void Resolver_pilha(Pilha *PNum, Pilha *POp){
     num2=(Desempilhar(PNum))->Numero;
     num1=(Desempilhar(PNum))->Numero;
     strcpy(op, Desempilhar(POp)->Operador);
-    Empilhar(PNum, "#", Calculo_parcial(num1, num2, op));
+    Empilhar(PNum, "#", Calcular(num1, num2, op));
 }
 int preced(const char *Op){
     int precedencia;
