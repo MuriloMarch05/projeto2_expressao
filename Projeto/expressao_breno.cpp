@@ -273,26 +273,36 @@ void Menu(){
         cout<<"[1] - Inserir expressão\n[2] - Calcular expressão\n[3] - Sair\nOpção: ";
         cin>>Op;
         switch(Op){
-            case 1: F.Inicio=Digitar_exp();
-                    system("cls");
-                    cin.get();
-                    break;
-            case 2: if(!Calcular_exp(&F)){
-				        cout<<"\nExpressão inválida!\n";
-			        }
-				    else{
-						cout<<"\nO resultado da expressão digitada é "<<Calcular_exp(&F)->Numero<<endl;
-					}	
-                    system("cls");
-                    cin.get();
-                    break;
-            case 3: system("cls");
-                    cin.get();
-                    break;
-            default:cout<<"\nOpção inválida\n";
-                    system("cls");
-                    cin.get();
-                    break;
+
+            case 1: 
+            F.Inicio=Digitar_exp();
+            system("cls");
+            cin.get();
+            break;
+
+            case 2: 
+            Elemento *resultado = Calcular_exp(&F);
+
+            if(resultado == NULL){
+			    cout<<"\nExpressão inválida!\n";
+			}
+			else{
+				cout<<"\nO resultado da expressão digitada é "<<resultado->Numero<<endl;
+			}	
+            system("cls");
+            cin.get();
+            break;
+
+            case 3: 
+            system("cls");
+            cin.get();
+            break;
+
+            default:
+            cout<<"\nOpção inválida\n";
+            system("cls");
+            cin.get();
+            break;
         }
     }while(Op!=3);
 }
