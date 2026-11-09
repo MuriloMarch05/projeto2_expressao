@@ -246,10 +246,10 @@ float Calcular_exp(Fila *F){
                    }
                }
                else{
-                   while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(") != 0 && preced(aux->Operador) <= preced(POp.Topo->Operador)){
+                   while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(") != 0 && preced(pto->Operador) <= preced(POp.Topo->Operador)){
                        Resolver_pilha(&PNum, &POp);
                    }
-                   Empilhar(&POp, aux->Operador, 0);
+                   Empilhar(&POp, pto->Operador, 0);
                }
            }
        } 
