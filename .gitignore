@@ -87,3 +87,6 @@ core
 # Test output & cache
 Testing/
 .cache/
+
+# Pasta do vscode
+.vscode/
