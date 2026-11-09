@@ -228,37 +228,42 @@ Elemento* Calcular_exp(Fila *F){
     Ini_Pilha(&PNum);
     Ini_Pilha(&POp);
     Elemento *pto;
-	if(F->Inicio!=NULL){
-		for(pto=F->Inicio;pto!=NULL;pto=pto->Prox){
-			if(strcmp(pto->Operador, "#")==0){
-				Empilhar(&PNum, "#", pto->Numero);
-			}
-			else{
-				if(!strcmp(pto->Operador, "(")){
-					Empilhar(&POp, "(", 0);
-				}
-				else{
-					if(!strcmp(pto->Operador, ")")){
-						while(!Pilha_Vazia(&POp) && strcmp(pto->Operador, "(")!=0){
-							Resolver_pilha(&PNum, &POp);
-						}
-						if(!Pilha_Vazia(&POp)){
-							free(Desempilhar(&POp));
-						}
-					}
-					else{
-						while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(") != 0 && preced(pto->Operador) <= preced(POp.Topo->Operador)){
-							Resolver_pilha(&PNum, &POp);
-						}
-						Empilhar(&POp, pto->Operador, 0);
-					}
-				}
-			} 
-		}
-		while(!Pilha_Vazia(&POp)){
-			Resolver_pilha(&PNum, &POp);
-		}
-	}
+
+    if(F->Inicio != NULL){
+        for(pto=F->Inicio; pto!=NULL; pto=pto->Prox){
+            if(strcmp(pto->Operador, "#")==0){
+                Empilhar(&PNum, "#", pto->Numero);
+            }
+            else{
+                if(!strcmp(pto->Operador, "(")){
+                    Empilhar(&POp, "(", 0);
+                }
+                else{
+                    if(!strcmp(pto->Operador, ")")){
+                        while(!Pilha_Vazia(&POp) && strcmp(POp.Topo->Operador, "(")!=0){
+                            Resolver_pilha(&PNum, &POp);
+                        }
+                        if(!Pilha_Vazia(&POp)){
+                            free(Desempilhar(&POp));
+                        }
+                    }
+                    else{
+                        while(!Pilha_Vazia(&POp) &&
+                              strcmp(POp.Topo->Operador, "(") != 0 &&
+                              preced(pto->Operador) <= preced(POp.Topo->Operador)){
+                            Resolver_pilha(&PNum, &POp);
+                        }
+                        Empilhar(&POp, pto->Operador, 0);
+                    }
+                }
+            }
+        }
+
+        while(!Pilha_Vazia(&POp)){
+            Resolver_pilha(&PNum, &POp);
+        }
+    }
+
     return PNum.Topo;
 }
 void Menu(){
