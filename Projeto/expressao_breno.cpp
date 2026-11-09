@@ -135,6 +135,41 @@ Elemento * Desempilhar(Pilha *P){
     }
     return Ret;
 }
+bool Analisar_Parent(Fila *F){
+    Elemento *pto;
+    Pilha P;
+    Ini_Pilha(&P);
+
+    bool ret = true;
+
+    if(F->Inicio != NULL){
+        for(pto=F->Inicio; pto!=NULL; pto=pto->Prox){
+
+            if(strcmp(pto->Operador, "(") == 0){
+                Empilhar(&P, "(", 0);
+            }
+
+            if(strcmp(pto->Operador, ")") == 0){
+                if(Pilha_Vazia(&P)){
+                    ret = false;
+                }
+                else{
+                    free(Desempilhar(&P));
+                }
+            }
+        }
+    }
+
+    if(!Pilha_Vazia(&P)){
+        ret = false;
+    }
+
+    while(!Pilha_Vazia(&P)){
+        free(Desempilhar(&P));
+    }
+
+    return ret;
+}
 float Calcular(float num1, float num2, const char* operador){
 
     float resultado = 0;
