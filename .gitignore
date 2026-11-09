@@ -37,11 +37,15 @@
 *.exe
 *.out
 *.app
+*.elf
+*.hex
+*.bin
 
 # Build directories
 build/
 Build/
 build-*/
+cmake-build-*/
 
 # CMake generated files
 CMakeFiles/
@@ -56,56 +60,30 @@ compile_commands.json
 *.log
 *.bak
 *.swp
+*.swo
+*~
 
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
-
-# Compilados e Binários (Evita subir executáveis e objetos)
-*.o
-*.obj
-*.exe
-*.dll
-*.dylib
-*.a
-*.lib
-*.out
-*.elf
-*.hex
-*.bin
-
-# Pastas de Build (Dependendo da sua IDE, pode criar pastas como 'build' ou 'cmake-build-debug')
-build/
-cmake-build-*/
-*.so
-*.dll.a
-
-# Arquivos temporários do Sistema Operacional
+# Operating System files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Arquivos de IDE e Editores de Código
+# IDE and Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
 .project
 .classpath
 .cproject
 *.sublime-project
 *.sublime-workspace
 
-# Logs e Relatórios de Compilação
-*.log
+# vcpkg
+vcpkg_installed/
+
+# Debug information files
+*.dwo
 core
 
-# Arquivos temporários de depuração
-*.pdb
+# Test output & cache
+Testing/
+.cache/
