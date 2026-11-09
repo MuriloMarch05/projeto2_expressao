@@ -202,7 +202,7 @@ void Resolver_pilha(Pilha *PNum, Pilha *POp){
     num2=(Desempilhar(PNum))->Numero;
     num1=(Desempilhar(PNum))->Numero;
     strcpy(op, Desempilhar(POp)->Operador);
-    Empilhar(PNum, "#", Calculo_parcial(num1, num2, op));
+    Empilhar(PNum, "#", Calcular(num1, num2, op));
 }
 int preced(const char *Op){
     int precedencia;
