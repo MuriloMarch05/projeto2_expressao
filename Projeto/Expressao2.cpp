@@ -258,7 +258,7 @@ void Menu(){
                     system("cls");
                     cin.get();
                     break;
-            case 2: cout<<"\nO resultado da expressão é "<<Calcular_exp(&F);
+            case 2: cout<<"\nO resultado da expressão é "<<Calcular_exp(&F) << endl;
                     system("cls");
                     cin.get();
                     break;
