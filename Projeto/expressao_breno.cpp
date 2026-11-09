@@ -316,18 +316,25 @@ void Menu(){
             break;
 
             case 2: {
+                
+            if(!Analisar_Parent(&F)){
+                cout << "\nParenteses invalidos!\n";
+            }
+            else{
             Elemento *resultado = Calcular_exp(&F);
 
             if(resultado == NULL){
-			    cout<<"\nExpressão inválida!\n";
-			}
-			else{
-				cout<<"\nO resultado da expressão digitada é "<<resultado->Numero<<endl;
-			}	
-            system("cls");
-            cin.get();
-            break;
+                cout << "\nExpressao invalida!\n";
             }
+            else{
+                cout << "\nResultado: " << resultado->Numero << endl;
+            }
+    }
+
+    system("cls");
+    cin.get();
+    break;
+}
             case 3: 
             system("cls");
             cin.get();
